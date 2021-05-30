@@ -41,18 +41,6 @@ public class PlayerMovement : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                MoveToPoint(hit.point);
-            }
-
-            RemoveFocus();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable != null && interactable.tag == "Enemy")
@@ -66,15 +54,17 @@ public class PlayerMovement : MonoBehaviour
                         playerNavMesh.stoppingDistance = playerStats.currentAttackRange;
                     }
                 }
-                else if(interactable != null)
+                else if (interactable != null)
                 {
                     SetFocus(interactable);
                 }
-                else
+                else 
                 {
-                    Debug.Log("something went wrong");
+                    MoveToPoint(hit.point);
+                    RemoveFocus();
                 }
             }
+
         }
     }
 
